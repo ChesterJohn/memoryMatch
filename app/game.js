@@ -186,8 +186,12 @@ const handleCardPress = (item) => {
         const fetchedDifficulty = await AsyncStorage.getItem('difficulty');
         if (fetchedDifficulty) {
           setDifficulty(fetchedDifficulty);
-          const initialLives = getInitialLives(fetchedDifficulty); // Get initial lives
-          setLives(initialLives); // Set initial lives
+          const initialLives = getInitialLives(fetchedDifficulty);  
+          setLives(initialLives);  
+        } else { 
+          setDifficulty('easy');
+          const initialLives = getInitialLives('easy');
+          setLives(initialLives);
         }
       } catch (error) {
         console.error('Error fetching difficulty:', error);
@@ -208,6 +212,7 @@ const handleCardPress = (item) => {
     if (lives === 0 && difficulty) {  
       playSound(gameOverSound);
       AsyncStorage.setItem('score', JSON.stringify(score));
+      setFlippedCount(0);
       Alert.alert('Game Over', `Your final score: ${score}`, [{ text: 'OK', onPress: handleGameOver }]);
     }
   }, [lives]);

@@ -13,6 +13,8 @@ const SettingsScreen = () => {
         const fetchedDifficulty = await AsyncStorage.getItem('difficulty');
         if (fetchedDifficulty !== null) {
           setDifficulty(fetchedDifficulty);
+        } else { 
+          setDifficulty('easy');
         }
       } catch (error) {
         console.error('Error fetching difficulty:', error);

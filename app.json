@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "memoryMatch",
+    "name": "Memory Match",
     "slug": "memoryMatch",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,13 +15,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.chestercodes.memoryMatch",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.chestercodes.memoryMatch",
+      "versionCode": 100
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +33,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "router-demo"
+    "scheme": "router-demo",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "32cab6be-0219-4453-9dd5-2a3007e4e5c9"
+      }
+    }
   }
 }

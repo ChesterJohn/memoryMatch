@@ -1,9 +1,39 @@
 
 import { Link } from 'expo-router';  
 import React, { useState, useEffect } from 'react';
-import { Image, Pressable, Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Image, Text, View, StyleSheet, ImageBackground } from 'react-native'; 
+import SplashScreen from './splash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function HomeScreen() {
+export default function HomeScreen() { 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      // Check if the app has been initialized before
+      const checkInitialization = async () => {
+          try {
+              const initializedBefore = await AsyncStorage.getItem('initializedBefore');
+              if (initializedBefore) { 
+                  setLoading(false);
+              } else { 
+                  const timer = setTimeout(() => {
+                      setLoading(false); 
+                      AsyncStorage.setItem('initializedBefore', 'true');
+                  }, 3000);
+                  return () => clearTimeout(timer);
+              }
+          } catch (error) {
+              console.error('Error checking initialization:', error);
+          }
+      };
+
+      checkInitialization();
+  }, []);
+
+    if (loading) {
+        return <SplashScreen />;
+    }
+
     return (
         <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
  
@@ -34,12 +64,18 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     page: {
-      flex: 1, 
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-      paddingVertical: 20,
+        flex: 1, 
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 20,
     },
 
     backgroundImage: {
